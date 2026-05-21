@@ -126,10 +126,19 @@ jobs:
 
       - name: Trigger ASG instance refresh (rolling deploy)
         run: |
-          # Cancel any in-progress refresh before starting a new one
+          # Cancel any in-progress refresh and wait until fully cancelled
           aws autoscaling cancel-instance-refresh \
             --auto-scaling-group-name starttech-backend-asg 2>/dev/null || true
-          sleep 5
+          for i in $(seq 1 12); do
+            STATUS=$(aws autoscaling describe-instance-refreshes \
+              --auto-scaling-group-name starttech-backend-asg \
+              --query 'InstanceRefreshes[0].Status' --output text 2>/dev/null || echo "None")
+            echo "Cancel status: $STATUS"
+            if [[ "$STATUS" == "Cancelled" || "$STATUS" == "None" || "$STATUS" == "Successful" || "$STATUS" == "Failed" ]]; then
+              break
+            fi
+            sleep 10
+          done
 
           REFRESH_ID=$(aws autoscaling start-instance-refresh \
             --auto-scaling-group-name starttech-backend-asg \
