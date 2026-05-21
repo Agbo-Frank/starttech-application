@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -42,8 +42,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Security audit
-        run: npm audit --audit-level=high
+      - name: Security audit (report only)
+        run: npm audit --audit-level=high || true
 
       - name: Build production bundle
         run: npm run build

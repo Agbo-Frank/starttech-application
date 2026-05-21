@@ -1,0 +1,3 @@
+Server/MuchToDo/.env
+Server/MuchToDo/.env.*
+!Server/MuchToDo/.env.example
