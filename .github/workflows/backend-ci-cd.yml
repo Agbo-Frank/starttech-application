@@ -126,6 +126,11 @@ jobs:
 
       - name: Trigger ASG instance refresh (rolling deploy)
         run: |
+          # Cancel any in-progress refresh before starting a new one
+          aws autoscaling cancel-instance-refresh \
+            --auto-scaling-group-name starttech-backend-asg 2>/dev/null || true
+          sleep 5
+
           REFRESH_ID=$(aws autoscaling start-instance-refresh \
             --auto-scaling-group-name starttech-backend-asg \
             --strategy Rolling \
