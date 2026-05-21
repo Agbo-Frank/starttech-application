@@ -2,11 +2,11 @@ name: Frontend CI/CD
 
 on:
   pull_request:
-    branches: [main, master]
+    branches: [main]
     paths:
       - 'Client/**'
   push:
-    branches: [main, master]
+    branches: [main]
     paths:
       - 'Client/**'
 
@@ -61,7 +61,7 @@ jobs:
     name: Deploy to S3 + CloudFront
     runs-on: ubuntu-latest
     needs: test-and-build
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     environment: production
 
     steps:
