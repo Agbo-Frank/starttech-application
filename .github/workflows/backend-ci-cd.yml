@@ -4,13 +4,13 @@ on:
   pull_request:
     branches: [main]
     paths:
-      # - 'Server/**'
-      # - 'Dockerfile'
+      - 'Server/**'
+      - 'Dockerfile'
   push:
     branches: [main]
     paths:
-      # - 'Server/**'
-      # - 'Dockerfile'
+      - 'Server/**'
+      - 'Dockerfile'
 
 env:
   GO_VERSION: '1.25'
