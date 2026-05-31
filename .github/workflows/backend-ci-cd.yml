@@ -8,9 +8,9 @@ on:
       - 'Dockerfile'
   push:
     branches: [main]
-    paths:
-      - 'Server/**'
-      - 'Dockerfile'
+    # paths:
+    #   - 'Server/**'
+    #   - 'Dockerfile'
 
 env:
   GO_VERSION: '1.25'
